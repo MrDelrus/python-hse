@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "applied-python-hse-hw"
+version = "0.1.0"
+description = ""
+authors = ["Nikita Zolin <mrdelrus@yandex.ru>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.12.0"
+isort = "^7.0.0"
+flake8 = "^7.3.0"
+mypy = "^1.19.1"
+pre-commit = "^4.5.1"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+strict = true
+warn_unused_configs = true
+warn_return_any = true
+plugins = ["pydantic.mypy"]
+disable_error_code = "import,attr-defined,misc"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
