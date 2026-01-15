@@ -1,0 +1,24 @@
+review:
+  auto_review: true
+  target_branches: ["main"]
+  block_on: []
+
+comments:
+  inline: true
+  summary: false
+
+filters:
+  exclude_categories:
+    - duplication
+    - performance
+
+include_categories:
+  - style
+  - readability
+  - best_practices
+  - correctness
+  - potential_bugs
+  - typos
+
+language:
+  enforce: true
