@@ -17,7 +17,8 @@ dp.include_router(router_progress)
 
 
 @dp.message(Command("start"))
-async def cmd_start(message: types.Message, state: FSMContext):
+async def cmd_start(message: types.Message, state: FSMContext) -> None:
+    await state.set_state(None)
     await message.answer(txt.WELCOME)
     await state.update_data(
         burned_calorie=0,
@@ -28,7 +29,7 @@ async def cmd_start(message: types.Message, state: FSMContext):
     )
 
 
-async def main():
+async def main() -> None:
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 

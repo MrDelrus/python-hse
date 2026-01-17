@@ -10,7 +10,7 @@ MIN_ACTIVITY_TIME_M = 1
 MAX_ACTIVITY_TIME_M = 720
 
 
-def validate_water(text: str) -> Decimal:
+def validate_water(text: str) -> float:
     try:
         number = Decimal(text)
     except InvalidOperation:
@@ -19,7 +19,7 @@ def validate_water(text: str) -> Decimal:
     if not MIN_WATER_CONSUMED <= number <= MAX_WATER_CONSUMED:
         raise ValueError()
 
-    return number
+    return float(number)
 
 
 def validate_product_name(text: str) -> str:
@@ -29,7 +29,7 @@ def validate_product_name(text: str) -> str:
     return text
 
 
-def validate_product_g(text: str) -> Decimal:
+def validate_product_g(text: str) -> float:
     try:
         number = Decimal(text)
     except InvalidOperation:
@@ -38,10 +38,10 @@ def validate_product_g(text: str) -> Decimal:
     if not MIN_EATEN_G <= number <= MAX_EATEN_G:
         raise ValueError()
 
-    return number
+    return float(number)
 
 
-def validate_activity(text: str) -> Decimal:
+def validate_activity(text: str) -> float:
     args = text.split()
     if len(args) != 2:
         raise ValueError()
@@ -54,4 +54,4 @@ def validate_activity(text: str) -> Decimal:
     if not MIN_ACTIVITY_TIME_M <= number <= MAX_ACTIVITY_TIME_M:
         raise ValueError()
 
-    return number
+    return float(number)

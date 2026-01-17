@@ -17,7 +17,7 @@ MIN_CALORIES_GOAL = 1000
 MAX_CALORIES_GOAL = 5000
 
 
-def validate_weight(text: str) -> Decimal:
+def validate_weight(text: str) -> float:
     try:
         number = Decimal(text)
     except InvalidOperation:
@@ -26,10 +26,10 @@ def validate_weight(text: str) -> Decimal:
     if not MIN_WEIGHT <= number <= MAX_WEIGHT:
         raise ValueError()
 
-    return number
+    return float(number)
 
 
-def validate_height(text: str) -> Decimal:
+def validate_height(text: str) -> float:
     try:
         number = Decimal(text)
     except InvalidOperation:
@@ -38,10 +38,10 @@ def validate_height(text: str) -> Decimal:
     if not MIN_HEIGHT <= number <= MAX_HEIGHT:
         raise ValueError()
 
-    return number
+    return float(number)
 
 
-def validate_age(text: str) -> Decimal:
+def validate_age(text: str) -> float:
     try:
         number = Decimal(text)
     except InvalidOperation:
@@ -50,10 +50,10 @@ def validate_age(text: str) -> Decimal:
     if not MIN_AGE <= number <= MAX_AGE:
         raise ValueError()
 
-    return number
+    return float(number)
 
 
-def validate_daily_exercise_time(text: str) -> Decimal:
+def validate_daily_exercise_time(text: str) -> float:
     try:
         number = Decimal(text)
     except InvalidOperation:
@@ -62,7 +62,7 @@ def validate_daily_exercise_time(text: str) -> Decimal:
     if not MIN_DAILY_EXERCISE_TIME <= number <= MAX_DAILY_EXERCISE_TIME:
         raise ValueError()
 
-    return number
+    return float(number)
 
 
 def validate_city(text: str) -> str:
@@ -82,7 +82,7 @@ def create_async_food_client(api_key: str) -> AsyncOpenWeatherClient:
     return client
 
 
-def validate_calories_goal(text: str) -> Decimal:
+def validate_calories_goal(text: str) -> float:
     try:
         number = Decimal(text)
     except InvalidOperation:
@@ -91,4 +91,4 @@ def validate_calories_goal(text: str) -> Decimal:
     if not MIN_CALORIES_GOAL <= number <= MAX_CALORIES_GOAL:
         raise ValueError()
 
-    return number
+    return float(number)

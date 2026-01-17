@@ -1,4 +1,5 @@
 import logging
+import typing
 
 import openfoodfacts
 
@@ -42,4 +43,4 @@ class OpenFoodFactsClient:
         calories = float(calories)
         logger.info("Calories for %s: %.2f kcal/100g", product, calories)
 
-        return calories
+        return typing.cast(float, calories)

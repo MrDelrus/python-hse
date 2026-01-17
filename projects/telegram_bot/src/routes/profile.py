@@ -25,7 +25,7 @@ async def cmd_set_profile_weight(message: Message, state: FSMContext) -> None:
     except ValueError:
         await message.answer(text=txt.VALIDATION_ERROR)
         return
-    await state.update_data(weight=float(weight_kg))
+    await state.update_data(weight=weight_kg)
     await state.set_state(ProfileForm.ask_height_cm)
     await message.answer(text=txt.ASK_HEIGHT)
 
@@ -39,7 +39,7 @@ async def cmd_set_profile_height(message: Message, state: FSMContext) -> None:
     except ValueError:
         await message.answer(text=txt.VALIDATION_ERROR)
         return
-    await state.update_data(height=float(height_cm))
+    await state.update_data(height=height_cm)
     await state.set_state(ProfileForm.ask_age)
     await message.answer(text=txt.ASK_AGE)
 
@@ -53,7 +53,7 @@ async def cmd_set_profile_age(message: Message, state: FSMContext) -> None:
     except ValueError:
         await message.answer(text=txt.VALIDATION_ERROR)
         return
-    await state.update_data(age=float(age))
+    await state.update_data(age=age)
     await state.set_state(ProfileForm.ask_daily_exercise_time_m)
     await message.answer(text=txt.ASK_DAILY_EXERCISE_TIME)
 
@@ -69,7 +69,7 @@ async def cmd_set_profile_daily_exercise_time(
     except ValueError:
         await message.answer(text=txt.VALIDATION_ERROR)
         return
-    await state.update_data(daily_exercise_time=float(daily_exercise_time_m))
+    await state.update_data(daily_exercise_time=daily_exercise_time_m)
     await state.set_state(ProfileForm.ask_city)
     await message.answer(text=txt.ASK_CITY)
 
@@ -101,12 +101,13 @@ async def cmd_set_profile_owm_api_key(message: Message, state: FSMContext) -> No
     if msg != "-":
         try:
             client = profile.create_async_weather_client(msg)
-            city = state.get_data()["city"]
+            data = await state.get_data()
+            city = data["city"]
             temperature = await client.get_temperature(city)
         except Exception:
             await message.answer(text=txt.OWM_FAILURE)
             return
-        await state.update_data(temperature=float(temperature))
+        await state.update_data(temperature=temperature)
 
     await state.update_data(temperature=None)
     await state.set_state(ProfileForm.ask_calories_goal)
@@ -136,9 +137,7 @@ async def cmd_set_profile_calories_goal(message: Message, state: FSMContext) -> 
         data["weight"], data["daily_exercise_time"], data["temperature"]
     )
 
-    await state.update_data(
-        calorie_goal=float(calories_goal), water_goal=float(water_goal)
-    )
+    await state.update_data(calorie_goal=calories_goal, water_goal=water_goal)
     await state.set_state(ProfileForm.ask_food_api_key)
     await message.answer(text=txt.ASK_FOOD_API_KEY)
 

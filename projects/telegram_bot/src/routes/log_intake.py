@@ -16,8 +16,9 @@ async def cmd_log_water(
 ) -> None:
     if command.args is None:
         await message.answer(text=txt.ASK_WATER_NO_ARGS)
+        return
 
-    msg = command.args.strip()
+    msg = str(command.args).strip()
     try:
         consumed_water_ml = log_intake.validate_water(msg)
     except ValueError:
@@ -28,7 +29,7 @@ async def cmd_log_water(
     current_consumed_water_ml = data["current_water"]
     current_consumed_water_ml += consumed_water_ml
 
-    await state.update_data(current_water=float(current_consumed_water_ml))
+    await state.update_data(current_water=current_consumed_water_ml)
 
     left_to_consume_water_ml = data["water_goal"] - current_consumed_water_ml
 
@@ -53,7 +54,7 @@ async def cmd_log_food_product_name(
         await message.answer(text=txt.ASK_FOOD_NO_ARGS)
         return
 
-    msg = command.args.strip()
+    msg = str(command.args).strip()
     try:
         product_name = log_intake.validate_product_name(msg)
     except ValueError:
@@ -77,10 +78,10 @@ async def cmd_log_food_gramms(
     client = data["food_client"]
     product_name = data["last_product_name"]
     try:
-        consumed_calorie = client.get_calories(product_name, float(eaten_g))
+        consumed_calorie = client.get_calories(product_name, eaten_g)
         current_consumed_calorie = data["current_calorie"]
         current_consumed_calorie += consumed_calorie
-        await state.update_data(current_calorie=float(current_consumed_calorie))
+        await state.update_data(current_calorie=current_consumed_calorie)
         answer_msg = txt.FOOD_CONSUMED.format(consumed_calorie)
         await message.answer(answer_msg)
     except Exception:
@@ -95,17 +96,19 @@ async def cmd_log_workout(
 ) -> None:
     if command.args is None:
         await message.answer(text=txt.ASK_WORKOUT_NO_ARGS)
+        return
 
-    msg = command.args.strip()
+    msg = str(command.args).strip()
     try:
         activity_time = log_intake.validate_activity(msg)
     except ValueError:
         await message.answer(text=txt.ASK_WORKOUT_NO_ARGS)
+        return
 
     burned_calorie = 200 * activity_time / 30
     data = await state.get_data()
     current_burned_calorie = data["burned_calorie"]
     current_burned_calorie += burned_calorie
 
-    await state.update_data(burned_calorie=float(current_burned_calorie))
+    await state.update_data(burned_calorie=current_burned_calorie)
     await message.answer(txt.ANSWER_WORKOUT)

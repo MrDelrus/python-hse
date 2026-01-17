@@ -13,13 +13,14 @@ ASK_AGE = "Enter your age."
 ASK_DAILY_EXERCISE_TIME = "Enter your average exercise time per day (minutes)."
 ASK_CITY = "Enter your city. You can skip this step, just enter '-'."
 ASK_OWM_API_KEY = (
-    "Enter your OpenWeatherMap api key, so we can reuse it for more detailed recommendations. "
-    "If you don't have one, just enter '-' - we won't use your city in this case."
+    "Enter your OpenWeatherMap api key, so we can reuse it for more detailed "
+    "recommendations. If you don't have one, just enter '-' - we won't use "
+    "your city in this case."
 )
 ASK_CALORIES_GOAL = (
     "Enter your goal (calories). Enter '-' if you don't have any - we will estimate it."
 )
 ASK_FOOD_API_KEY = (
-    "Enter your API key from 'https://fdc.nal.usda.gov/'. Enter '-' if you don't have any. "
-    "Note, that some services will not be available in this case."
+    "Enter your API key from 'https://fdc.nal.usda.gov/'. Enter '-' if you don't have "
+    "any. Note, that some services will not be available in this case."
 )
