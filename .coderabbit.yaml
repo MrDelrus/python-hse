@@ -9,13 +9,13 @@ comments:
 
 filters:
   exclude_categories:
+    - best_practices
     - duplication
     - performance
 
 include_categories:
   - style
   - readability
-  - best_practices
   - correctness
   - potential_bugs
   - typos
