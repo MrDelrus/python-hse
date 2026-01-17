@@ -97,7 +97,7 @@ async def cmd_set_profile_city(message: Message, state: FSMContext) -> None:
 # OWM Api key
 @router.message(ProfileForm.ask_owm_api_key)
 async def cmd_set_profile_owm_api_key(message: Message, state: FSMContext) -> None:
-    msg = message.text.lower().strip()
+    msg = message.text.strip()
     if msg != "-":
         try:
             client = profile.create_async_weather_client(msg)
@@ -152,6 +152,7 @@ async def cmd_set_profile_food_api_key(message: Message, state: FSMContext) -> N
             await state.update_data(food_client=client)
         except Exception:
             await message.answer(text=txt.VALIDATION_ERROR)
+            return
 
     await state.set_state(None)
     await message.answer(text=txt.END)
