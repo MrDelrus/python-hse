@@ -10,7 +10,7 @@ packages = [{ include = "common" }]
 python = "^3.12"
 httpx = "^0.28.1"
 pyowm = "^3.5.0"
-openfoodfacts = "^3.3.0"
+requests = "^2.32.5"
 
 
 [build-system]

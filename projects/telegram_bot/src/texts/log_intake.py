@@ -1,3 +1,5 @@
+PROFILE_REQUIRED = "You forgot to set your profile! Try again after providing the data."
+
 ASK_WATER = (
     "How much have your drunk since the last update? Please, enter the value (ml)."
 )

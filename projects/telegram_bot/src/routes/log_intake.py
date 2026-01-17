@@ -3,7 +3,7 @@ from aiogram.filters import Command, CommandObject
 from aiogram.filters.state import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from core.validation import log_intake
+from core.validation import log_intake, profile
 from states import LogFoodForm
 from texts import log_intake as txt
 
@@ -14,6 +14,11 @@ router = Router(name="intake logger")
 async def cmd_log_water(
     message: Message, state: FSMContext, command: CommandObject
 ) -> None:
+    data = await state.get_data()
+    if not profile.validate_profile(set(data)):
+        await message.answer(txt.PROFILE_REQUIRED)
+        return
+
     if command.args is None:
         await message.answer(text=txt.ASK_WATER_NO_ARGS)
         return
@@ -25,7 +30,6 @@ async def cmd_log_water(
         await message.answer(txt.ASK_WATER_NO_ARGS)
         return
 
-    data = await state.get_data()
     current_consumed_water_ml = data["current_water"]
     current_consumed_water_ml += consumed_water_ml
 
@@ -46,6 +50,10 @@ async def cmd_log_food_product_name(
     message: Message, state: FSMContext, command: CommandObject
 ) -> None:
     data = await state.get_data()
+    if not profile.validate_profile(set(data)):
+        await message.answer(txt.PROFILE_REQUIRED)
+        return
+
     if "food_client" not in data:
         await message.answer(txt.NO_API_KEY_FOUND)
         return
@@ -71,9 +79,13 @@ async def cmd_log_food_gramms(
     message: Message,
     state: FSMContext,
 ) -> None:
+    data = await state.get_data()
+    if not profile.validate_profile(set(data)):
+        await message.answer(txt.PROFILE_REQUIRED)
+        return
+
     msg = message.text.strip()
     eaten_g = log_intake.validate_product_g(msg)
-    data = await state.get_data()
 
     client = data["food_client"]
     product_name = data["last_product_name"]
@@ -94,6 +106,11 @@ async def cmd_log_food_gramms(
 async def cmd_log_workout(
     message: Message, state: FSMContext, command: CommandObject
 ) -> None:
+    data = await state.get_data()
+    if not profile.validate_profile(set(data)):
+        await message.answer(txt.PROFILE_REQUIRED)
+        return
+
     if command.args is None:
         await message.answer(text=txt.ASK_WORKOUT_NO_ARGS)
         return
@@ -106,7 +123,6 @@ async def cmd_log_workout(
         return
 
     burned_calorie = 200 * activity_time / 30
-    data = await state.get_data()
     current_burned_calorie = data["burned_calorie"]
     current_burned_calorie += burned_calorie
 

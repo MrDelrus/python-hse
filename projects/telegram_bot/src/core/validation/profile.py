@@ -77,7 +77,7 @@ def create_async_weather_client(api_key: str) -> AsyncOpenWeatherClient:
     return client
 
 
-def create_async_food_client(api_key: str) -> AsyncOpenWeatherClient:
+def create_async_food_client(api_key: str) -> USDACalorieClient:
     client = USDACalorieClient(api_key)
     return client
 
@@ -92,3 +92,14 @@ def validate_calories_goal(text: str) -> float:
         raise ValueError()
 
     return float(number)
+
+
+def validate_profile(data: set[str]) -> bool:
+    required = (
+        "current_water",
+        "water_goal",
+        "current_calorie",
+        "calorie_goal",
+        "burned_calorie",
+    )
+    return all(k in data for k in required)

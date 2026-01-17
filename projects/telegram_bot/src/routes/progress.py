@@ -3,6 +3,7 @@ from aiogram.filters import Command
 from aiogram.filters.state import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
+from core.validation import profile
 from texts import progress as txt
 
 router = Router(name="progress checker")
@@ -14,6 +15,10 @@ async def cmd_check_progress(
     state: FSMContext,
 ) -> None:
     data = await state.get_data()
+    if not profile.validate_profile(set(data)):
+        await message.answer(txt.PROFILE_REQUIRED)
+        return
+
     consumed_water = data["current_water"]
     goal_water = data["water_goal"]
 
