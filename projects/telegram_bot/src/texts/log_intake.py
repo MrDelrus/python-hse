@@ -22,6 +22,6 @@ NO_API_KEY_FOUND = (
 )
 
 ASK_WORKOUT_NO_ARGS = (
-    "Please enter '/log_workout <activity type> <activity time> instead."
+    "Please enter '/log_workout <activity type> <activity time, minutes> instead."
 )
 ANSWER_WORKOUT = "Nice workout!"
