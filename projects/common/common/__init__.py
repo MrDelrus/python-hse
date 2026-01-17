@@ -1,3 +1,3 @@
 from . import clients
 
-__all__ = [clients]
+__all__ = ["clients"]
