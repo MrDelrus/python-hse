@@ -85,7 +85,11 @@ async def cmd_log_food_gramms(
         return
 
     msg = message.text.strip()
-    eaten_g = log_intake.validate_product_g(msg)
+    try:
+        eaten_g = log_intake.validate_product_g(msg)
+    except ValueError:
+        await message.answer(txt.INVALID_FOOD_GRAMMS)
+        return
 
     client = data["food_client"]
     product_name = data["last_product_name"]
