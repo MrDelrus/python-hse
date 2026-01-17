@@ -1,5 +1,6 @@
 from aiogram.fsm.state import State, StatesGroup
 
+
 class ProfileForm(StatesGroup):
     ask_weight_kg: State = State()
     ask_height_cm: State = State()

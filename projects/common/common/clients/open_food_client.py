@@ -1,4 +1,5 @@
 import logging
+
 import openfoodfacts
 
 logger = logging.getLogger(__name__)
@@ -9,9 +10,7 @@ CALORIE_MULTIPLIER = 0.23900573614
 
 class OpenFoodFactsClient:
     def __init__(self, user_agent: str | None = None) -> None:
-        self._api = openfoodfacts.API(
-            user_agent=user_agent or DEFAULT_USER_AGENT
-        )
+        self._api = openfoodfacts.API(user_agent=user_agent or DEFAULT_USER_AGENT)
 
     def get_calories_100g(self, product: str) -> float:
         logger.info("Request calories for product: %s", product)

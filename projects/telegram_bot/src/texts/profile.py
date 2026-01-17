@@ -1,7 +1,11 @@
 ENTRY = "Enter your weight (kg):"
 VALIDATION_ERROR = "No jokes here! We're dead serious about your health. Try again!"
-OWM_FAILURE = "Sorry, we couldn't fetch the temperature in your city. Enter your key again:"
-END = "Thanks for the information! Explore detailed recommendations using other commands."
+OWM_FAILURE = (
+    "Sorry, we couldn't fetch the temperature in your city. Enter your key again:"
+)
+END = (
+    "Thanks for the information! Explore detailed recommendations using other commands."
+)
 
 ASK_WEIGHT = "Enter your weight (kg)."
 ASK_HEIGHT = "Enter your height (cm)."

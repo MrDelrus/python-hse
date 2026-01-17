@@ -3,10 +3,10 @@ from aiogram.filters import Command
 from aiogram.filters.state import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-
 from texts import progress as txt
 
 router = Router(name="progress checker")
+
 
 @router.message(Command("check_progress"), StateFilter(None))
 async def cmd_check_progress(
@@ -30,6 +30,6 @@ async def cmd_check_progress(
         goal_calorie,
         goal_calorie - consumed_calorie,
         burned_calorie,
-        consumed_calorie - burned_calorie
+        consumed_calorie - burned_calorie,
     )
     await message.answer(answer_msg)

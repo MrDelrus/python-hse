@@ -3,22 +3,20 @@ from aiogram.filters import Command, CommandObject
 from aiogram.filters.state import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-
 from core.validation import log_intake
-from states import LogFoodForm 
+from states import LogFoodForm
 from texts import log_intake as txt
 
 router = Router(name="intake logger")
 
+
 @router.message(Command("log_water"), StateFilter(None))
 async def cmd_log_water(
-    message: Message,
-    state: FSMContext,
-    command: CommandObject
+    message: Message, state: FSMContext, command: CommandObject
 ) -> None:
     if command.args is None:
         await message.answer(text=txt.ASK_WATER_NO_ARGS)
-    
+
     msg = command.args.strip()
     try:
         consumed_water_ml = log_intake.validate_water(msg)
@@ -41,11 +39,10 @@ async def cmd_log_water(
     answer_msg = txt.WATER_LEFT.format(left_to_consume_water_ml)
     await message.answer(answer_msg)
 
+
 @router.message(Command("log_food"), StateFilter(None))
 async def cmd_log_food_product_name(
-    message: Message,
-    state: FSMContext,
-    command: CommandObject
+    message: Message, state: FSMContext, command: CommandObject
 ) -> None:
     data = await state.get_data()
     if "food_client" not in data:
@@ -91,15 +88,14 @@ async def cmd_log_food_gramms(
 
     await state.set_state(None)
 
+
 @router.message(Command("log_workout"), StateFilter(None))
 async def cmd_log_workout(
-    message: Message,
-    state: FSMContext,
-    command: CommandObject
+    message: Message, state: FSMContext, command: CommandObject
 ) -> None:
     if command.args is None:
         await message.answer(text=txt.ASK_WORKOUT_NO_ARGS)
-    
+
     msg = command.args.strip()
     try:
         activity_time = log_intake.validate_activity(msg)

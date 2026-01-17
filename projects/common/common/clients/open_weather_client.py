@@ -1,6 +1,6 @@
 import logging
-import httpx
 
+import httpx
 from pyowm import OWM
 from pyowm.commons.exceptions import NotFoundError
 

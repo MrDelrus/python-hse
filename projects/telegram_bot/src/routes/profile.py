@@ -2,18 +2,19 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-
-from states import ProfileForm
 from core import compute_target_calorie, compute_target_water_ml
 from core.validation import profile
+from states import ProfileForm
 from texts import profile as txt
 
 router = Router(name="profile setter")
+
 
 @router.message(Command("set_profile"))
 async def cmd_set_profile_entry(message: Message, state: FSMContext) -> None:
     await message.answer(text=txt.ASK_WEIGHT)
     await state.set_state(ProfileForm.ask_weight_kg)
+
 
 # Weight
 @router.message(ProfileForm.ask_weight_kg)
@@ -28,6 +29,7 @@ async def cmd_set_profile_weight(message: Message, state: FSMContext) -> None:
     await state.set_state(ProfileForm.ask_height_cm)
     await message.answer(text=txt.ASK_HEIGHT)
 
+
 # Height
 @router.message(ProfileForm.ask_height_cm)
 async def cmd_set_profile_height(message: Message, state: FSMContext) -> None:
@@ -40,6 +42,7 @@ async def cmd_set_profile_height(message: Message, state: FSMContext) -> None:
     await state.update_data(height=float(height_cm))
     await state.set_state(ProfileForm.ask_age)
     await message.answer(text=txt.ASK_AGE)
+
 
 # Age
 @router.message(ProfileForm.ask_age)
@@ -54,9 +57,12 @@ async def cmd_set_profile_age(message: Message, state: FSMContext) -> None:
     await state.set_state(ProfileForm.ask_daily_exercise_time_m)
     await message.answer(text=txt.ASK_DAILY_EXERCISE_TIME)
 
+
 # Daily exercise time
 @router.message(ProfileForm.ask_daily_exercise_time_m)
-async def cmd_set_profile_daily_exercise_time(message: Message, state: FSMContext) -> None:
+async def cmd_set_profile_daily_exercise_time(
+    message: Message, state: FSMContext
+) -> None:
     msg = message.text.strip()
     try:
         daily_exercise_time_m = profile.validate_daily_exercise_time(msg)
@@ -66,6 +72,7 @@ async def cmd_set_profile_daily_exercise_time(message: Message, state: FSMContex
     await state.update_data(daily_exercise_time=float(daily_exercise_time_m))
     await state.set_state(ProfileForm.ask_city)
     await message.answer(text=txt.ASK_CITY)
+
 
 # City
 @router.message(ProfileForm.ask_city)
@@ -85,6 +92,7 @@ async def cmd_set_profile_city(message: Message, state: FSMContext) -> None:
     await state.update_data(temperature=None)
     await state.set_state(ProfileForm.ask_calories_goal)
     await message.answer(text=txt.ASK_CALORIES_GOAL)
+
 
 # OWM Api key
 @router.message(ProfileForm.ask_owm_api_key)
@@ -125,12 +133,12 @@ async def cmd_set_profile_calories_goal(message: Message, state: FSMContext) -> 
         )
 
     water_goal = compute_target_water_ml(
-        data["weight"],
-        data["daily_exercise_time"],
-        data["temperature"]
+        data["weight"], data["daily_exercise_time"], data["temperature"]
     )
 
-    await state.update_data(calorie_goal=float(calories_goal), water_goal=float(water_goal))
+    await state.update_data(
+        calorie_goal=float(calories_goal), water_goal=float(water_goal)
+    )
     await state.set_state(ProfileForm.ask_food_api_key)
     await message.answer(text=txt.ASK_FOOD_API_KEY)
 
