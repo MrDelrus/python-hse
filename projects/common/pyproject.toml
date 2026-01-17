@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "common"
+version = "1.0.0"
+description = "Internal package for different clients and other reusable code"
+authors = ["Nikita Zolin <mrdelrus@yandex.ru>"]
+license = "MIT"
+packages = [{ include = "common" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+httpx = "^0.28.1"
+pyowm = "^3.5.0"
+requests = "^2.32.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
